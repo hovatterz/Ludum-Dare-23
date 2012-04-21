@@ -13,6 +13,7 @@ public class Game extends StateBasedGame {
 
 	public static int currentLevel = 1;
 	public static Player player = new Player();
+	public static SpriteSheet playerSpriteSheet;
 	public static SpriteSheet terrainSpriteSheet;
 
 	public Game() {
@@ -21,6 +22,8 @@ public class Game extends StateBasedGame {
 	
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {	
+		playerSpriteSheet = new SpriteSheet("data/player.png", BLOCK_WIDTH, BLOCK_HEIGHT);
+		
 		String filePath = String.format("data/terrain_%dx%d.png", BLOCK_WIDTH, BLOCK_HEIGHT);
 		terrainSpriteSheet = new SpriteSheet(filePath, BLOCK_WIDTH, BLOCK_HEIGHT);
 		

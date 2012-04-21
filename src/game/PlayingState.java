@@ -1,6 +1,5 @@
 package game;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -45,9 +44,10 @@ public class PlayingState extends BasicGameState {
 		}
 		Game.terrainSpriteSheet.endUse();
 		
-		g.setColor(Color.white);
-		g.drawRect(Game.player.getPosition().x * Game.BLOCK_WIDTH, 
-				Game.player.getPosition().y * Game.BLOCK_HEIGHT, 32, 32);
+		Game.playerSpriteSheet.startUse();
+		Game.playerSpriteSheet.renderInUse(Game.player.getPosition().x * Game.BLOCK_WIDTH, 
+				Game.player.getPosition().y * Game.BLOCK_HEIGHT, 0, 0);
+		Game.playerSpriteSheet.endUse();
 	}
 
 	@Override
