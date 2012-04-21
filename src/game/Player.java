@@ -24,16 +24,20 @@ public class Player {
 	}
 	
 	public void move(int dx, int dy, Level level) {
-		if (_position.x + dx < 0 || _position.x + dx >= level.getWidth() 
-				|| _position.y + dy < 0 || _position.y + dy >= level.getHeight()) { 
+		Point newPosition = new Point(_position);
+		newPosition.translate(dx, dy);
+		
+		if (newPosition.x < 0 || newPosition.x >= level.getWidth() 
+				|| newPosition.y < 0 || newPosition.y >= level.getHeight()) { 
 			return;
 		}
 		
-		_position.translate(dx, dy);
-		
-		Block block = level.blockAt(_position.x, _position.y);
-		this.applyPoints(block.getPoints());
-		block.setType(Block.BLOCK_TYPE_NONE);
+		Block block = level.blockAt(newPosition.x, newPosition.y);
+		if (block.isPassable()) {
+			_position = newPosition;
+			this.applyPoints(block.getPoints());
+			block.setType(Block.BLOCK_TYPE_NONE);
+		}
 	}
 	
 	public void setPosition(int x, int y) {
