@@ -15,19 +15,21 @@ public class PlayingState extends BasicGameState {
 	public static final int ID = 10;
 	
 	private Level _level;
+	
+	public Level getLevel() {
+		return _level;
+	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		_level = new Level(container.getWidth() / Game.BLOCK_WIDTH, 
+				container.getHeight() / Game.BLOCK_HEIGHT, 
+				Game.BLOCK_WIDTH, Game.BLOCK_HEIGHT);
 	}
 	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
-		_level = new Level(container.getWidth() / Game.BLOCK_WIDTH, 
-				container.getHeight() / Game.BLOCK_HEIGHT, 
-				Game.BLOCK_WIDTH, Game.BLOCK_HEIGHT);
-		_level.load(Game.currentLevel);
-		
 		Game.player.setPosition(_level.getPlayerStart().x, _level.getPlayerStart().y);
 	}
 

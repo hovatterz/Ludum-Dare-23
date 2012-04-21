@@ -13,21 +13,13 @@ public class Level {
 	private ArrayList<Explosion> _explosions = new ArrayList<Explosion>();
 	private Block[][] _levelData;
 	private Point _playerStart = new Point(0, 0);
+	private String _intro = "";
 	
 	public Level(int width, int height, int blockWidth, int blockHeight) {
 		_width = width;
 		_height = height;
 		_blockWidth = blockWidth;
 		_blockHeight = blockHeight;
-		
-		_levelData = new Block[_width][_height];
-		for (int x = 0; x < _width; ++x) {
-			for (int y = 0; y < _height; ++y) {
-				_levelData[x][y] = new Block(Block.BLOCK_TYPE_NONE, 
-						x * _blockWidth, y * _blockHeight, 
-						_blockWidth, _blockHeight);
-			}
-		}
 	}
 	
 	public int getWidth() {
@@ -46,18 +38,29 @@ public class Level {
 		return _playerStart;
 	}
 	
+	public String getIntro() {
+		return _intro;
+	}
+	
 	public void load(int level) {
+		reset();
+		
 		String filePath = String.format("data/%d.level", level);
 		try {
-			ArrayList<String> lines = new ArrayList<String>();
+			ArrayList<String> levelDataLines = new ArrayList<String>();
 			Scanner scanner = new Scanner(new File(filePath));
 			while (scanner.hasNext()) {
-				lines.add(scanner.next());
+				String line = scanner.nextLine();
+				if (line.startsWith("intro: ")) {
+					_intro += line.replace("intro: ", " ") + "\n";
+				} else {
+					levelDataLines.add(line);
+				}
 			}
 			scanner.close();
 			
 			int y = 0;
-			Iterator<String> row = lines.iterator();
+			Iterator<String> row = levelDataLines.iterator();
 			while (row.hasNext()) {
 				String current = row.next();
 				for (int x = 0; x < current.length(); ++x) {
@@ -94,5 +97,18 @@ public class Level {
 		if (x + 1 < _width && y + 1 < _height) { blocks.add(_levelData[x + 1][y + 1]); }
 		
 		return blocks;
+	}
+	
+	private void reset() {
+		_intro = "";
+		
+		_levelData = new Block[_width][_height];
+		for (int x = 0; x < _width; ++x) {
+			for (int y = 0; y < _height; ++y) {
+				_levelData[x][y] = new Block(Block.BLOCK_TYPE_NONE, 
+						x * _blockWidth, y * _blockHeight, 
+						_blockWidth, _blockHeight);
+			}
+		}
 	}
 }

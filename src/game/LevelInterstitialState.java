@@ -11,6 +11,7 @@ public class LevelInterstitialState extends BasicGameState {
 	
 	public static final int ID = 20;
 	
+	private PlayingState _playingState;
 	private StateBasedGame _game;
 
 	@Override
@@ -25,19 +26,27 @@ public class LevelInterstitialState extends BasicGameState {
 		if (Game.currentLevel > Game.NUM_LEVELS) {
 			game.enterState(WinState.ID);
 		}
+		
+		_playingState = (PlayingState) game.getState(PlayingState.ID);
+		_playingState.getLevel().load(Game.currentLevel);
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		String message = String.format("You beat the level! Your score so far: %d", Game.player.getPoints());
+		String intro = _playingState.getLevel().getIntro();
+		g.drawString(intro, 10, 50);
+		
+		if (Game.currentLevel != 1) {
+			String message = String.format("Your score so far: %d", Game.player.getPoints());
+			int width = g.getFont().getWidth(message);
+			int height = g.getFont().getHeight(message);
+			g.drawString(message, container.getWidth() / 2 - width / 2, container.getHeight() / 2 - height / 2);
+		}
+		
+		String message = "Press enter/return to continue.";
 		int width = g.getFont().getWidth(message);
 		int height = g.getFont().getHeight(message);
-		g.drawString(message, container.getWidth() / 2 - width / 2, container.getHeight() / 2 - height / 2);
-		
-		message = "Press enter/return to continue.";
-		width = g.getFont().getWidth(message);
-		height = g.getFont().getHeight(message);
 		g.drawString(message, container.getWidth() / 2 - width / 2, container.getHeight() / 2 - height / 2 + 20);
 	}
 

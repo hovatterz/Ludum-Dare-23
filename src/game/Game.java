@@ -13,7 +13,7 @@ public class Game extends StateBasedGame {
 	public static final int BLOCK_HEIGHT = 32;
 	public static final int NUM_LEVELS = 2;
 
-	public static int currentLevel = 1;
+	public static int currentLevel = 0;
 	public static Player player = new Player();
 	public static Animation explosionAnimation;
 	public static SpriteSheet spriteSheet;
@@ -30,8 +30,8 @@ public class Game extends StateBasedGame {
 		explosionAnimation = new Animation(spriteSheet, 0, 2, 5, 2, true, 100, true);
 		explosionAnimation.setLooping(false);
 		
-		addState(new PlayingState());
 		addState(new LevelInterstitialState());
+		addState(new PlayingState());
 		addState(new WinState());
 	}
 
