@@ -20,6 +20,10 @@ public class Explosion {
 		return _animation;
 	}
 	
+	public Point getPosition() {
+		return _position;
+	}
+	
 	public void draw() {
 		_animation.draw(_position.x * Game.BLOCK_WIDTH, _position.y * Game.BLOCK_HEIGHT);
 	}

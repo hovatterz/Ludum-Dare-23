@@ -41,13 +41,15 @@ public class Player {
 				level.blockAt(newPosition.x, newPosition.y + 1).setType(Block.BLOCK_TYPE_NONE);
 				level.blockAt(newPosition.x - 1, newPosition.y).setType(Block.BLOCK_TYPE_NONE);
 				level.blockAt(newPosition.x + 1, newPosition.y).setType(Block.BLOCK_TYPE_NONE);
+				level.blockAt(newPosition.x, newPosition.y).setType(Block.BLOCK_TYPE_NONE);
 				
+				level.getExplosions().add(new Explosion(Game.spriteSheet, new Point(newPosition)));
+			} else if (block.getType() == Block.BLOCK_TYPE_CITY) {
 				level.getExplosions().add(new Explosion(Game.spriteSheet, new Point(newPosition)));
 			} else {
 				_position = newPosition;
+				block.setType(Block.BLOCK_TYPE_NONE);
 			}
-			
-			block.setType(Block.BLOCK_TYPE_NONE);
 		}
 	}
 	

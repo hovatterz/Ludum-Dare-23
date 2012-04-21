@@ -80,13 +80,13 @@ public class Block {
 
 		case BLOCK_TYPE_GRASS:
 			_passable = true;
-			_points = 1;
+			_points = 0;
 			_spritePosition = new Point(1, 0);
 			break;
 			
 		case BLOCK_TYPE_DIRT:
 			_passable = true;
-			_points = 3;
+			_points = 0;
 			_spritePosition = new Point(2, 0);
 			break;
 			
@@ -98,7 +98,7 @@ public class Block {
 			
 		case BLOCK_TYPE_CITY:
 			_passable = true;
-			_points = -20;
+			_points = 5;
 			_spritePosition = new Point(rand.nextInt(5 - 4 + 1) + 4, 0);
 			break;
 			

@@ -55,6 +55,7 @@ public class PlayingState extends BasicGameState {
 		while (iterator.hasNext()) {
 			Explosion e = iterator.next();
 			if (e.getAnimation().isStopped()) {
+				_level.blockAt(e.getPosition().x, e.getPosition().y).setType(Block.BLOCK_TYPE_NONE);
 				iterator.remove();
 			} else {
 				e.draw();
