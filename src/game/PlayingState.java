@@ -34,20 +34,20 @@ public class PlayingState extends BasicGameState {
 		int blockWidth = container.getWidth() / Game.BLOCK_WIDTH;
 		int blockHeight = container.getHeight() / Game.BLOCK_HEIGHT;
 		
-		Game.terrainSpriteSheet.startUse();
+		Game.spriteSheet.startUse();
+		
 		for (int x = 0; x < blockWidth; ++x) {
 			for (int y = 0; y < blockHeight; ++y) {
 				Block block = _level.blockAt(x, y);
-				Game.terrainSpriteSheet.renderInUse(x * Game.BLOCK_WIDTH, y * Game.BLOCK_WIDTH, 
+				Game.spriteSheet.renderInUse(x * Game.BLOCK_WIDTH, y * Game.BLOCK_WIDTH, 
 						block.getSpritePosition().x, block.getSpritePosition().y);
 			}
 		}
-		Game.terrainSpriteSheet.endUse();
+
+		Game.spriteSheet.renderInUse(Game.player.getPosition().x * Game.BLOCK_WIDTH, 
+				Game.player.getPosition().y * Game.BLOCK_HEIGHT, 0, 3);
 		
-		Game.playerSpriteSheet.startUse();
-		Game.playerSpriteSheet.renderInUse(Game.player.getPosition().x * Game.BLOCK_WIDTH, 
-				Game.player.getPosition().y * Game.BLOCK_HEIGHT, 0, 0);
-		Game.playerSpriteSheet.endUse();
+		Game.spriteSheet.endUse();
 	}
 
 	@Override

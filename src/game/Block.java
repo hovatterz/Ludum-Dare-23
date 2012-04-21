@@ -99,19 +99,19 @@ public class Block {
 		case BLOCK_TYPE_CITY:
 			_passable = true;
 			_points = -20;
-			_spritePosition = new Point(rand.nextInt(2), 1);
+			_spritePosition = new Point(rand.nextInt(5 - 4 + 1) + 4, 0);
 			break;
 			
 		case BLOCK_TYPE_RUBY:
 			_passable = true;
 			_points = 20;
-			_spritePosition = new Point(0, 2);
+			_spritePosition = new Point(0, 1);
 			break;
 			
 		case BLOCK_TYPE_BOMB:
 			_passable = true;
 			_points = 10;
-			_spritePosition = new Point(1, 2);
+			_spritePosition = new Point(1, 1);
 			break;
 		}
 	}
