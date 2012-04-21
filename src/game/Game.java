@@ -30,6 +30,7 @@ public class Game extends StateBasedGame {
 		explosionAnimation = new Animation(spriteSheet, 0, 2, 5, 2, true, 100, true);
 		explosionAnimation.setLooping(false);
 		
+		addState(new IntroState());
 		addState(new LevelInterstitialState());
 		addState(new PlayingState());
 		addState(new WinState());
