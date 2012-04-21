@@ -51,6 +51,10 @@ public class PlayingState extends BasicGameState {
 		
 		Game.spriteSheet.endUse();
 		
+		String scoreDisplay = String.format("Score: %d", Game.player.getPoints());
+		int width = g.getFont().getWidth(scoreDisplay);
+		g.drawString(scoreDisplay, container.getWidth() - width - 10, 10);
+		
 		Iterator<Explosion> iterator = _level.getExplosions().iterator();
 		while (iterator.hasNext()) {
 			Explosion e = iterator.next();
