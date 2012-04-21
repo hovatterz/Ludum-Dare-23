@@ -36,6 +36,14 @@ public class Player {
 		if (block.isPassable()) {
 			_position = newPosition;
 			this.applyPoints(block.getPoints());
+			
+			if (block.getType() == Block.BLOCK_TYPE_BOMB) {
+				level.blockAt(_position.x, _position.y - 1).setType(Block.BLOCK_TYPE_NONE);
+				level.blockAt(_position.x, _position.y + 1).setType(Block.BLOCK_TYPE_NONE);
+				level.blockAt(_position.x - 1, _position.y).setType(Block.BLOCK_TYPE_NONE);
+				level.blockAt(_position.x + 1, _position.y).setType(Block.BLOCK_TYPE_NONE);
+			}
+			
 			block.setType(Block.BLOCK_TYPE_NONE);
 		}
 	}

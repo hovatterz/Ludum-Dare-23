@@ -12,6 +12,7 @@ public class Block {
 	public static final int BLOCK_TYPE_CITY = 4;
 	public static final int BLOCK_TYPE_RUBY = 5;
 	public static final int BLOCK_TYPE_PLAYER_SPAWN = 6;
+	public static final int BLOCK_TYPE_BOMB = 7;
 	
 	private boolean _passable;
 	private int _points;
@@ -38,6 +39,8 @@ public class Block {
 			return BLOCK_TYPE_RUBY;
 		} else if (symbol == 'P') {
 			return BLOCK_TYPE_PLAYER_SPAWN;
+		} else if (symbol == 'B') {
+			return BLOCK_TYPE_BOMB;
 		} else {
 			return BLOCK_TYPE_NONE;
 		}
@@ -102,7 +105,13 @@ public class Block {
 		case BLOCK_TYPE_RUBY:
 			_passable = true;
 			_points = 20;
-			_spritePosition = new Point(4, 0);
+			_spritePosition = new Point(0, 2);
+			break;
+			
+		case BLOCK_TYPE_BOMB:
+			_passable = true;
+			_points = 10;
+			_spritePosition = new Point(1, 2);
 			break;
 		}
 	}
