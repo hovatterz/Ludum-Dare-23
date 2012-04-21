@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Level {
 	private int _blockWidth, _blockHeight;
 	private int _width, _height;
+	private ArrayList<Block> _cities = new ArrayList<Block>();
 	private ArrayList<Explosion> _explosions = new ArrayList<Explosion>();
 	private Block[][] _levelData;
 	private Point _playerStart = new Point(0, 0);
@@ -28,6 +29,10 @@ public class Level {
 	
 	public int getHeight() {
 		return _height;
+	}
+	
+	public ArrayList<Block> getCities() {
+		return _cities;
 	}
 	
 	public ArrayList<Explosion> getExplosions() {
@@ -69,6 +74,8 @@ public class Level {
 					
 					if (type == Block.BLOCK_TYPE_PLAYER_SPAWN) {
 						_playerStart.setLocation(x, y);
+					} else if (type == Block.BLOCK_TYPE_CITY) {
+						_cities.add(_levelData[x][y]);
 					}
 				}
 				

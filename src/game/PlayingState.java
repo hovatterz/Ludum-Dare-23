@@ -58,20 +58,23 @@ public class PlayingState extends BasicGameState {
 		int width = g.getFont().getWidth(scoreDisplay);
 		g.drawString(scoreDisplay, container.getWidth() - width - 10, 10);
 		
-		for (int x = 0; x < _level.getWidth(); ++x) {
-			Block block = _level.blockAt(x, 4);
-			if (block.getType() == Block.BLOCK_TYPE_CITY) {
-				if (_level.blockAt(x, 5).getType() == Block.BLOCK_TYPE_NONE) {
-					Explosion explosion = new Explosion(Game.spriteSheet);
-					explosion.addPosition(new Point(x, 4));
-					_level.getExplosions().add(explosion);
-				}
+		Iterator<Block> cityIter = _level.getCities().iterator();
+		while (cityIter.hasNext()) {
+			Block block = cityIter.next();
+			int blockX = block.getBounds().x / Game.BLOCK_WIDTH;
+			int blockY = block.getBounds().y / Game.BLOCK_HEIGHT;
+			
+			if (_level.blockAt(blockX, blockY + 1).getType() == Block.BLOCK_TYPE_NONE) {
+				Explosion explosion = new Explosion(Game.spriteSheet);
+				explosion.addPosition(new Point(blockX, blockY));
+				_level.getExplosions().add(explosion);
+				cityIter.remove();
 			}
 		}
 		
-		Iterator<Explosion> iterator = _level.getExplosions().iterator();
-		while (iterator.hasNext()) {
-			Explosion e = iterator.next();
+		Iterator<Explosion> explosionIter = _level.getExplosions().iterator();
+		while (explosionIter.hasNext()) {
+			Explosion e = explosionIter.next();
 			if (e.getAnimation().isStopped()) {
 				Iterator<Point> posIter = e.getPositions().iterator();
 				while (posIter.hasNext()) {
@@ -81,7 +84,7 @@ public class PlayingState extends BasicGameState {
 					block.setType(Block.BLOCK_TYPE_NONE);
 				}
 				
-				iterator.remove();
+				explosionIter.remove();
 			} else {
 				e.draw();
 			}
