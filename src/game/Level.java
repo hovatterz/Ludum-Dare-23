@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Level {
 	private int _blockWidth, _blockHeight;
 	private int _width, _height;
+	private ArrayList<Explosion> _explosions = new ArrayList<Explosion>();
 	private Block[][] _levelData;
 	private Point _playerStart = new Point(0, 0);
 	
@@ -35,6 +36,10 @@ public class Level {
 	
 	public int getHeight() {
 		return _height;
+	}
+	
+	public ArrayList<Explosion> getExplosions() {
+		return _explosions;
 	}
 	
 	public Point getPlayerStart() {

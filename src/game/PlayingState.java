@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Iterator;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -48,6 +50,16 @@ public class PlayingState extends BasicGameState {
 				Game.player.getPosition().y * Game.BLOCK_HEIGHT, 0, 3);
 		
 		Game.spriteSheet.endUse();
+		
+		Iterator<Explosion> iterator = _level.getExplosions().iterator();
+		while (iterator.hasNext()) {
+			Explosion e = iterator.next();
+			if (e.getAnimation().isStopped()) {
+				iterator.remove();
+			} else {
+				e.draw();
+			}
+		}
 	}
 
 	@Override

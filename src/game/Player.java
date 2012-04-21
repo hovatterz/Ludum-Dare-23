@@ -34,14 +34,17 @@ public class Player {
 		
 		Block block = level.blockAt(newPosition.x, newPosition.y);
 		if (block.isPassable()) {
-			_position = newPosition;
 			this.applyPoints(block.getPoints());
 			
 			if (block.getType() == Block.BLOCK_TYPE_BOMB) {
-				level.blockAt(_position.x, _position.y - 1).setType(Block.BLOCK_TYPE_NONE);
-				level.blockAt(_position.x, _position.y + 1).setType(Block.BLOCK_TYPE_NONE);
-				level.blockAt(_position.x - 1, _position.y).setType(Block.BLOCK_TYPE_NONE);
-				level.blockAt(_position.x + 1, _position.y).setType(Block.BLOCK_TYPE_NONE);
+				level.blockAt(newPosition.x, newPosition.y - 1).setType(Block.BLOCK_TYPE_NONE);
+				level.blockAt(newPosition.x, newPosition.y + 1).setType(Block.BLOCK_TYPE_NONE);
+				level.blockAt(newPosition.x - 1, newPosition.y).setType(Block.BLOCK_TYPE_NONE);
+				level.blockAt(newPosition.x + 1, newPosition.y).setType(Block.BLOCK_TYPE_NONE);
+				
+				level.getExplosions().add(new Explosion(Game.spriteSheet, new Point(newPosition)));
+			} else {
+				_position = newPosition;
 			}
 			
 			block.setType(Block.BLOCK_TYPE_NONE);

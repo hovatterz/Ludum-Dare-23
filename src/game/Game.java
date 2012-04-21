@@ -1,5 +1,6 @@
 package game;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -14,6 +15,7 @@ public class Game extends StateBasedGame {
 
 	public static int currentLevel = 1;
 	public static Player player = new Player();
+	public static Animation explosionAnimation;
 	public static SpriteSheet spriteSheet;
 
 	public Game() {
@@ -23,6 +25,8 @@ public class Game extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {	
 		spriteSheet = new SpriteSheet("data/tiles.png", BLOCK_WIDTH, BLOCK_HEIGHT);
+		explosionAnimation = new Animation(spriteSheet, 0, 2, 5, 2, true, 100, true);
+		explosionAnimation.setLooping(false);
 		
 		addState(new PlayingState());
 		addState(new LevelInterstitialState());
