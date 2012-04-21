@@ -18,6 +18,11 @@ public class LevelInterstitialState extends BasicGameState {
 			throws SlickException {
 		_game = game;
 	}
+	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) {
+		++Game.currentLevel;
+	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)

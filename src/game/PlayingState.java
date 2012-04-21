@@ -24,7 +24,7 @@ public class PlayingState extends BasicGameState {
 		_level = new Level(container.getWidth() / Game.BLOCK_WIDTH, 
 				container.getHeight() / Game.BLOCK_HEIGHT, 
 				Game.BLOCK_WIDTH, Game.BLOCK_HEIGHT);
-		_level.generate();
+		_level.load(Game.currentLevel);
 		
 		Game.player.setPosition(0, 0);
 	}

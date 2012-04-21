@@ -10,6 +10,8 @@ public class Block {
 	public static final int BLOCK_TYPE_DIRT = 2;
 	public static final int BLOCK_TYPE_STONE = 3;
 	public static final int BLOCK_TYPE_CITY = 4;
+	public static final int BLOCK_TYPE_RUBY = 5;
+	public static final int BLOCK_TYPE_PLAYER_SPAWN = 6;
 	
 	private int _points;
 	private int _type;
@@ -20,6 +22,24 @@ public class Block {
 		_bounds = new Rectangle(x, y, width, height);
 		
 		setType(type);
+	}
+	
+	public static int typeForChar(char symbol) {
+		if (symbol == '1') {
+			return BLOCK_TYPE_GRASS;
+		} else if (symbol == '2') {
+			return BLOCK_TYPE_DIRT;
+		} else if (symbol == '3') {
+			return BLOCK_TYPE_STONE;
+		} else if (symbol == '4') {
+			return BLOCK_TYPE_CITY;
+		} else if (symbol == 'R') {
+			return BLOCK_TYPE_RUBY;
+		} else if (symbol == 'P') {
+			return BLOCK_TYPE_PLAYER_SPAWN;
+		} else {
+			return BLOCK_TYPE_NONE;
+		}
 	}
 	
 	public Rectangle getBounds() {
@@ -43,6 +63,7 @@ public class Block {
 		
 		_type = type;
 		switch (type) {
+		case BLOCK_TYPE_PLAYER_SPAWN:
 		case BLOCK_TYPE_NONE:
 			_points = 0;
 			_spritePosition = new Point(0, 0);
@@ -54,18 +75,23 @@ public class Block {
 			break;
 			
 		case BLOCK_TYPE_DIRT:
-			_points = 2;
+			_points = 3;
 			_spritePosition = new Point(2, 0);
 			break;
 			
 		case BLOCK_TYPE_STONE:
-			_points = 3;
+			_points = 5;
 			_spritePosition = new Point(3, 0);
 			break;
 			
 		case BLOCK_TYPE_CITY:
-			_points = -3;
+			_points = -20;
 			_spritePosition = new Point(rand.nextInt(2), 1);
+			break;
+			
+		case BLOCK_TYPE_RUBY:
+			_points = 20;
+			_spritePosition = new Point(4, 0);
 			break;
 		}
 	}

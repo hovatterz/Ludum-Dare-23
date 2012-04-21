@@ -1,7 +1,10 @@
 package game;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class Level {
 	private int _blockWidth, _blockHeight;
@@ -32,27 +35,29 @@ public class Level {
 		return _height;
 	}
 	
-	public void generate() {
-		Random rand = new Random();
-		
-		for (int x = 0; x < _width; ++x) {
-			int type = rand.nextInt(3);
-			
-			if (type == 0) {
-				_levelData[x][4].setType(Block.BLOCK_TYPE_CITY);
+	public void load(int level) {
+		String filePath = String.format("data/%d.level", level);
+		try {
+			ArrayList<String> lines = new ArrayList<String>();
+			Scanner scanner = new Scanner(new File(filePath));
+			while (scanner.hasNext()) {
+				lines.add(scanner.next());
 			}
+			scanner.close();
 			
-			_levelData[x][5].setType(Block.BLOCK_TYPE_GRASS);
-		}
-		
-		for (int x = 0; x < _width; ++x) {
-			for (int y = 6; y < _height - 3; ++y) {
-				_levelData[x][y].setType(Block.BLOCK_TYPE_DIRT);
+			int y = 0;
+			Iterator<String> row = lines.iterator();
+			while (row.hasNext()) {
+				String current = row.next();
+				for (int c = 0; c < current.length(); ++c) {
+					char symbol = current.charAt(c);
+					_levelData[c][y].setType(Block.typeForChar(symbol));
+				}
+				
+				++y;
 			}
-			
-			for (int y = _height - 3; y < _height; ++y) {
-				_levelData[x][y].setType(Block.BLOCK_TYPE_STONE);
-			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	

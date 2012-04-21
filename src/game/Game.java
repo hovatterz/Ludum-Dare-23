@@ -11,6 +11,7 @@ public class Game extends StateBasedGame {
 	public static final int BLOCK_WIDTH = 32;
 	public static final int BLOCK_HEIGHT = 32;
 
+	public static int currentLevel = 1;
 	public static Player player = new Player();
 	public static SpriteSheet terrainSpriteSheet;
 
