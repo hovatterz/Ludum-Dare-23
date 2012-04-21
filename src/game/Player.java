@@ -34,20 +34,21 @@ public class Player {
 		
 		Block block = level.blockAt(newPosition.x, newPosition.y);
 		if (block.isPassable()) {
-			this.applyPoints(block.getPoints());
-			
 			if (block.getType() == Block.BLOCK_TYPE_BOMB) {
-				level.blockAt(newPosition.x, newPosition.y - 1).setType(Block.BLOCK_TYPE_NONE);
-				level.blockAt(newPosition.x, newPosition.y + 1).setType(Block.BLOCK_TYPE_NONE);
-				level.blockAt(newPosition.x - 1, newPosition.y).setType(Block.BLOCK_TYPE_NONE);
-				level.blockAt(newPosition.x + 1, newPosition.y).setType(Block.BLOCK_TYPE_NONE);
-				level.blockAt(newPosition.x, newPosition.y).setType(Block.BLOCK_TYPE_NONE);
-				
-				level.getExplosions().add(new Explosion(Game.spriteSheet, new Point(newPosition)));
+				Explosion explosion = new Explosion(Game.spriteSheet);
+				explosion.addPosition(new Point(newPosition.x, newPosition.y - 1));
+				explosion.addPosition(new Point(newPosition.x, newPosition.y + 1));
+				explosion.addPosition(new Point(newPosition.x - 1, newPosition.y));
+				explosion.addPosition(new Point(newPosition.x + 1, newPosition.y));
+				explosion.addPosition(new Point(newPosition));
+				level.getExplosions().add(explosion);
 			} else if (block.getType() == Block.BLOCK_TYPE_CITY) {
-				level.getExplosions().add(new Explosion(Game.spriteSheet, new Point(newPosition)));
+				Explosion explosion = new Explosion(Game.spriteSheet);
+				explosion.addPosition(new Point(newPosition));
+				level.getExplosions().add(explosion);
 			} else {
 				_position = newPosition;
+				this.applyPoints(block.getPoints());
 				block.setType(Block.BLOCK_TYPE_NONE);
 			}
 		}

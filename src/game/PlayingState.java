@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Point;
 import java.util.Iterator;
 
 import org.newdawn.slick.GameContainer;
@@ -55,11 +56,29 @@ public class PlayingState extends BasicGameState {
 		int width = g.getFont().getWidth(scoreDisplay);
 		g.drawString(scoreDisplay, container.getWidth() - width - 10, 10);
 		
+		for (int x = 0; x < _level.getWidth(); ++x) {
+			Block block = _level.blockAt(x, 4);
+			if (block.getType() == Block.BLOCK_TYPE_CITY) {
+				if (_level.blockAt(x, 5).getType() == Block.BLOCK_TYPE_NONE) {
+					Explosion explosion = new Explosion(Game.spriteSheet);
+					explosion.addPosition(new Point(x, 4));
+					_level.getExplosions().add(explosion);
+				}
+			}
+		}
+		
 		Iterator<Explosion> iterator = _level.getExplosions().iterator();
 		while (iterator.hasNext()) {
 			Explosion e = iterator.next();
 			if (e.getAnimation().isStopped()) {
-				_level.blockAt(e.getPosition().x, e.getPosition().y).setType(Block.BLOCK_TYPE_NONE);
+				Iterator<Point> posIter = e.getPositions().iterator();
+				while (posIter.hasNext()) {
+					Point position = posIter.next();
+					Block block = _level.blockAt(position.x, position.y);
+					Game.player.applyPoints(block.getPoints());
+					block.setType(Block.BLOCK_TYPE_NONE);
+				}
+				
 				iterator.remove();
 			} else {
 				e.draw();
