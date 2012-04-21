@@ -23,7 +23,9 @@ public class Game extends StateBasedGame {
 	}
 	
 	@Override
-	public void initStatesList(GameContainer container) throws SlickException {	
+	public void initStatesList(GameContainer container) throws SlickException {
+		container.getInput().enableKeyRepeat();
+		
 		spriteSheet = new SpriteSheet("data/tiles.png", BLOCK_WIDTH, BLOCK_HEIGHT);
 		explosionAnimation = new Animation(spriteSheet, 0, 2, 5, 2, true, 100, true);
 		explosionAnimation.setLooping(false);
