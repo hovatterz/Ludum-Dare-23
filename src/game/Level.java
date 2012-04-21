@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Level {
 	private int _blockWidth, _blockHeight;
 	private int _width, _height;
 	private Block[][] _levelData;
+	private Point _playerStart = new Point(0, 0);
 	
 	public Level(int width, int height, int blockWidth, int blockHeight) {
 		_width = width;
@@ -35,6 +37,10 @@ public class Level {
 		return _height;
 	}
 	
+	public Point getPlayerStart() {
+		return _playerStart;
+	}
+	
 	public void load(int level) {
 		String filePath = String.format("data/%d.level", level);
 		try {
@@ -49,9 +55,13 @@ public class Level {
 			Iterator<String> row = lines.iterator();
 			while (row.hasNext()) {
 				String current = row.next();
-				for (int c = 0; c < current.length(); ++c) {
-					char symbol = current.charAt(c);
-					_levelData[c][y].setType(Block.typeForChar(symbol));
+				for (int x = 0; x < current.length(); ++x) {
+					int type = Block.typeForChar(current.charAt(x));
+					_levelData[x][y].setType(type);
+					
+					if (type == Block.BLOCK_TYPE_PLAYER_SPAWN) {
+						_playerStart.setLocation(x, y);
+					}
 				}
 				
 				++y;

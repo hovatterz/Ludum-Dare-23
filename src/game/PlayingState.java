@@ -25,7 +25,7 @@ public class PlayingState extends BasicGameState {
 				Game.BLOCK_WIDTH, Game.BLOCK_HEIGHT);
 		_level.load(Game.currentLevel);
 		
-		Game.player.setPosition(0, 0);
+		Game.player.setPosition(_level.getPlayerStart().x, _level.getPlayerStart().y);
 	}
 
 	@Override
