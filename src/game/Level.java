@@ -117,5 +117,7 @@ public class Level {
 						_blockWidth, _blockHeight);
 			}
 		}
+		
+		_cities = new ArrayList<Block>();
 	}
 }
