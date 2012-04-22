@@ -42,6 +42,7 @@ public class Game extends StateBasedGame {
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer app = new AppGameContainer(new Game());
 		app.setDisplayMode(800, 608, false);
+		app.setShowFPS(false);
 		app.start();
 	}
 
