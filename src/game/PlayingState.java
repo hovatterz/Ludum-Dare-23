@@ -96,7 +96,6 @@ public class PlayingState extends BasicGameState {
 			throws SlickException {
 		Point playerPosition = Game.player.getPosition();
 		if (playerPosition.y < container.getHeight() / Game.BLOCK_HEIGHT - 1 &&_level.blockAt(playerPosition.x, playerPosition.y + 1).getType() == Block.BLOCK_TYPE_NONE) {
-			// Game.player.move(0, 1, _level);
 			Game.player.setPosition(playerPosition.x, playerPosition.y + 1);
 		}
 		
