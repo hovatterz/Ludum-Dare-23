@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -61,6 +62,11 @@ public class PlayingState extends BasicGameState {
 		Iterator<Block> cityIter = _level.getCities().iterator();
 		while (cityIter.hasNext()) {
 			Block block = cityIter.next();
+			if (block.getType() != Block.BLOCK_TYPE_CITY) {
+				cityIter.remove();
+				continue;
+			}
+			
 			int blockX = block.getBounds().x / Game.BLOCK_WIDTH;
 			int blockY = block.getBounds().y / Game.BLOCK_HEIGHT;
 			
@@ -78,6 +84,7 @@ public class PlayingState extends BasicGameState {
 			if (e.getAnimation().isStopped()) {
 				Iterator<Point> posIter = e.getPositions().iterator();
 				while (posIter.hasNext()) {
+					new Sound("data/explosion.wav").play(0.75f, 0.3f);
 					Point position = posIter.next();
 					Block block = _level.blockAt(position.x, position.y);
 					Game.player.applyPoints(block.getPoints());
