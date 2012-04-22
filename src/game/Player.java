@@ -2,6 +2,9 @@ package game;
 
 import java.awt.Point;
 
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+
 public class Player {
 	private int _health = 100;
 	private int _points = 0;
@@ -49,6 +52,15 @@ public class Player {
 			} else {
 				_position = newPosition;
 				this.applyPoints(block.getPoints());
+				
+				if (block.getType() == Block.BLOCK_TYPE_RUBY) {
+					try {
+						new Sound("data/powerup.wav").play(0.75f, 1.0f);
+					} catch (SlickException e) {
+						e.printStackTrace();
+					}
+				}
+				
 				block.setType(Block.BLOCK_TYPE_NONE);
 			}
 		}
